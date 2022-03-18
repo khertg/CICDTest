@@ -42,3 +42,4 @@ jobs:
       uses: TheDoctor0/zip-release@0.6.1
       with:
          path: src/CICDTest.Function/CICDTest/bin/Release/netcoreapp3.1/publish
+         directory: src/CICDTest.Function/CICDTest/bin/Release/netcoreapp3.1
