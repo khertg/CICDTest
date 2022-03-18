@@ -43,6 +43,10 @@ jobs:
 
 
   dev1_release:
+
     needs: build_cicdtest
     runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
     
