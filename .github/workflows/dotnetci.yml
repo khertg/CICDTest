@@ -51,4 +51,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+
+  dev2_release:
+
+    needs: build_cicdtest
+    environment:
+      name: default_environment
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
     
