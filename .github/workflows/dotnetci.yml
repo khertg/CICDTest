@@ -45,17 +45,13 @@ jobs:
   dev1_release:
 
     needs: build_cicdtest
-    environment:
-      name: dev1_environment
+#   environment:
+#     name: dev1_environment
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
  
-    - name: Download Artifact
-    - uses: actions/download-artifact@v3
-      with:
-        name: fa-artifact
 
     - name: Display Structure Of Downloaded Files
       run: ls -R
