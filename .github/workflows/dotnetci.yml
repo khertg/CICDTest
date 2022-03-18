@@ -13,6 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
@@ -20,9 +21,21 @@ jobs:
     - name: Restore dependencies
       working-directory: src/CICDTest.Function
       run: dotnet restore
+      
     - name: Build
       working-directory: src/CICDTest.Function
       run: dotnet build --no-restore
+      
     - name: Test
       working-directory: src/CICDTest.Function
       run: dotnet test --no-build --verbosity normal
+      
+    - name: Publish
+      working-directory: src/CICDTest.Function
+      run: dotnet publish CICDTest.sln -c Release --no-restore --no-build
+      
+    - name: Zip published files
+      working-directory: src/CICDTest.Function
+    - uses: TheDoctor0/zip-release@0.6.1
+      with:
+         path: CICDTest/bin/Release/netcoreapp3.1/publish
