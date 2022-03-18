@@ -45,8 +45,8 @@ jobs:
   dev1_release:
 
     needs: build_cicdtest
-#   environment:
-#     name: dev1_environment
+    environment:
+      name: dev1_environment
     runs-on: ubuntu-latest
 
     steps:
