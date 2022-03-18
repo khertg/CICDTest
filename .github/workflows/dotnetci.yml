@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build_cicdtest:
 
     runs-on: ubuntu-latest
 
@@ -34,14 +34,15 @@ jobs:
     - name: Publish
       working-directory: src/CICDTest.Function
       run: dotnet publish CICDTest.sln -c Release --no-restore
-
-#    - name: Zip Published Files
-#      uses: TheDoctor0/zip-release@0.6.1
-#      with:
-#         path: src/CICDTest.Function/CICDTest/bin/Release/netcoreapp3.1/publish
          
     - name: Upload Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
         name: fa-artifact
         path: src/CICDTest.Function/CICDTest/bin/Release/netcoreapp3.1/publish
+
+
+  dev1_release:
+    needs: build_cicdtest
+    runs-on: ubuntu-latest
+    
