@@ -12,13 +12,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Setup and run tests
+      working-directory: src/CICDTest.Function
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      working-directory: src/CICDTest.Function
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
