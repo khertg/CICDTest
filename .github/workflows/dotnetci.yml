@@ -58,7 +58,7 @@ jobs:
         name: fa-artifact
         path: publish
 
-    - name: Display structure of downloaded files
+    - name: Display Structure Of Downloaded Files
       run: ls -R
   
   dev2_release:
