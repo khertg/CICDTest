@@ -18,6 +18,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
+        
+    - name: Setup Zip Release
+      uses: TheDoctor0/zip-release@0.6.1
+
     - name: Restore dependencies
       working-directory: src/CICDTest.Function
       run: dotnet restore
@@ -35,7 +39,6 @@ jobs:
       run: dotnet publish CICDTest.sln -c Release --no-restore --no-build
       
     - name: Zip published files
-      working-directory: src/CICDTest.Function
-    - uses: TheDoctor0/zip-release@0.6.1
+      uses: TheDoctor0/zip-release@0.6.1
       with:
-         path: CICDTest/bin/Release/netcoreapp3.1/publish
+         path: src/CICDTest.Function/CICDTest/bin/Release/netcoreapp3.1/publish
