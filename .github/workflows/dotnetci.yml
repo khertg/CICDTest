@@ -61,11 +61,27 @@ jobs:
     - name: Display Structure Of Downloaded Files
       run: ls -R
       
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+
     - name: Azure Principal Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
+
+    - name: Create Storage Account
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        resourceGroupName: ${{ secrets.AZURE_RG }}
+        template: ./src/CICDTest.Function/arm_templates/cicdtest-storageaccount.json
+#       parameters: storageAccountType=Standard_LRS
+
+    - name: Azure Principal Logout
+      run: |
+        az logout
   
   dev2_release:
 
