@@ -1,0 +1,100 @@
+name: CICDTest
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_cicdtest:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+
+    - name: Restore dependencies
+      working-directory: src/CICDTest.Function
+      run: dotnet restore
+      
+    - name: Build
+      working-directory: src/CICDTest.Function
+      run: dotnet build --no-restore
+      
+    - name: Test
+      working-directory: src/CICDTest.Function
+      run: dotnet test --no-build --verbosity normal
+      
+    - name: Publish
+      working-directory: src/CICDTest.Function
+      run: dotnet publish CICDTest.sln -c Release --no-restore
+         
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: fa-artifact
+        path: src/CICDTest.Function/CICDTest/bin/Release/netcoreapp3.1/publish
+
+
+  dev1_release:
+
+    needs: build_cicdtest
+#   environment:
+#     name: dev1_environment
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name : Download Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: fa-artifact
+        path: publish
+
+    - name: Display Structure Of Downloaded Files
+      run: ls -R
+      
+    - name: Azure Principal Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+  
+  dev2_release:
+
+    needs: build_cicdtest
+    environment:
+      name: dev2_environment
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+
+  uat_release:
+
+    needs: build_cicdtest
+    environment:
+      name: uat_environment
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+
+  prod_release:
+
+    needs: build_cicdtest
+    environment:
+      name: prod_environment
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
