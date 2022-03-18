@@ -50,7 +50,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Download Artifact
     - uses: actions/download-artifact@v3
       with:
         name: fa-artifact
