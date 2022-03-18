@@ -62,4 +62,25 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
+
+  uat_release:
+
+    needs: build_cicdtest
+    environment:
+      name: uat_environment
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+
+  prod_release:
+
+    needs: build_cicdtest
+    environment:
+      name: prod_environment
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
