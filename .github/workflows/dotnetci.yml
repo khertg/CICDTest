@@ -49,13 +49,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
- 
-    - uses: actions/download-artifact@v3
-    - name: Download Artifact
-      with:
-        name: fa-artifact
 
-    - name: Display Structure Of Downloaded Files
+    - uses: actions/download-artifact@v3
+      with:
+        name: my-artifact
+
+    - name: Display structure of downloaded files
       run: ls -R
   
   dev2_release:
