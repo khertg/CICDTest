@@ -73,7 +73,7 @@ jobs:
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./src/CICDTest.Function/arm_templates/cicdtest-storageaccount.json
 
-    - name: Create AppService Plan
+    - name: Create App Service Plan
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
@@ -86,6 +86,12 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./src/CICDTest.Function/arm_templates/cicdtest-functionapp.json
+
+    - name: Deploy Azure Function App
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: khertg-cicdtest
+        package: publish
 
     - name: Azure Principal Logout
       run: |
