@@ -36,7 +36,7 @@ jobs:
       
     - name: Publish
       working-directory: src/CICDTest.Function
-      run: dotnet publish CICDTest.sln -c Release --no-restore --no-build
+      run: dotnet publish CICDTest.sln -c Release --no-restore
       
     - name: Zip published files
       uses: TheDoctor0/zip-release@0.6.1
